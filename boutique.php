@@ -77,6 +77,14 @@ function montantGlobal(){
 	return $tot;
 }
 
+function montantGlobalTVA(){
+	$tot=0;
+	for ($i=0; $i<count($_SESSION['panier']['libelleProduit']) ; $i++) {
+		$tot+=$_SESSION['panier']['qteProduit'][$i]*$_SESSION['panier']['prixProduit'][$i];
+	}
+	return $tot + $tot*$_SESSION['panier']['tva']/100;
+}
+
 function supprimerPanier(){
 	if(isset($_SESSION['panier'])){
 		unset($_SESSION['panier']);
@@ -95,6 +103,8 @@ function compterArticle(){
 
 	if (isset($_SESSION['panier'])) {
 		return count($_SESSION['panier']['libelleProduit']);
+	}else{
+		return 0;
 	}
 
 }
